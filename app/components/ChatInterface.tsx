@@ -55,6 +55,10 @@ interface CodeProps extends ReactMarkdownProps {
   className?: string;
 }
 
+interface LinkProps extends ReactMarkdownProps {
+  href?: string;
+}
+
 const MessageContent = ({ content }: { content: string }) => (
   <ReactMarkdown
     className="prose prose-sm max-w-none dark:prose-invert prose-pre:bg-gray-800 prose-pre:text-gray-100"
@@ -74,7 +78,7 @@ const MessageContent = ({ content }: { content: string }) => (
           </code>
         )
       },
-      a({ children, href, ...props }: ReactMarkdownProps) {
+      a({ children, href, ...props }: LinkProps) {
         return (
           <a
             className="text-blue-500 hover:text-blue-600 underline"
