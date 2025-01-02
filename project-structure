@@ -1,0 +1,8 @@
+app/
+  ├── layout.tsx
+  ├── page.tsx
+  ├── globals.css
+  └── components/
+      ├── ChatHeader.tsx
+      ├── ChatInput.tsx
+      └── MessageList.tsx 
