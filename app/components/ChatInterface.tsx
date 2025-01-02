@@ -4,7 +4,6 @@ import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Message } from '../types/chat'
-import type { Components } from 'react-markdown'
 
 const AIAvatar = () => (
   <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 p-[2px]">
