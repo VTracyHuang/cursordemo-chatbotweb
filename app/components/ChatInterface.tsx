@@ -4,6 +4,7 @@ import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Message } from '../types/chat'
+import { ReactMarkdownProps } from 'react-markdown/lib/complex-types'
 
 const AIAvatar = () => (
   <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 p-[2px]">
@@ -49,13 +50,17 @@ const UserAvatar = () => (
   </div>
 )
 
-// 创建一个消息内容组件来处理 markdown
+interface CodeProps extends ReactMarkdownProps {
+  inline?: boolean;
+  className?: string;
+}
+
 const MessageContent = ({ content }: { content: string }) => (
   <ReactMarkdown
     className="prose prose-sm max-w-none dark:prose-invert prose-pre:bg-gray-800 prose-pre:text-gray-100"
     remarkPlugins={[remarkGfm]}
     components={{
-      code({ node, inline, className, children, ...props }: any) {
+      code({ inline, className, children, ...props }: CodeProps) {
         return (
           <code
             className={`${className} ${
@@ -69,10 +74,11 @@ const MessageContent = ({ content }: { content: string }) => (
           </code>
         )
       },
-      a({ children, ...props }: any) {
+      a({ children, href, ...props }: ReactMarkdownProps) {
         return (
           <a
             className="text-blue-500 hover:text-blue-600 underline"
+            href={href}
             target="_blank"
             rel="noopener noreferrer"
             {...props}
@@ -81,14 +87,14 @@ const MessageContent = ({ content }: { content: string }) => (
           </a>
         )
       },
-      ul({ children, ...props }: any) {
+      ul({ children, ...props }: ReactMarkdownProps) {
         return (
           <ul className="list-disc list-inside my-2" {...props}>
             {children}
           </ul>
         )
       },
-      ol({ children, ...props }: any) {
+      ol({ children, ...props }: ReactMarkdownProps) {
         return (
           <ol className="list-decimal list-inside my-2" {...props}>
             {children}

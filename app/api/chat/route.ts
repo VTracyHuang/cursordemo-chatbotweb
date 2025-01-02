@@ -27,7 +27,7 @@ export async function POST(request: Request) {
       headers: { 'Content-Type': 'application/json' },
     });
 
-  } catch (error: any) {
+  } catch (error) {
     console.error('Chat API Error:', error);
     return new Response(
       JSON.stringify({ error: 'Failed to get response from AI' }),
