@@ -55,8 +55,7 @@ const MessageContent = ({ content }: { content: string }) => (
     className="prose prose-sm max-w-none dark:prose-invert prose-pre:bg-gray-800 prose-pre:text-gray-100"
     remarkPlugins={[remarkGfm]}
     components={{
-      // 自定义代码块样式
-      code({ node, inline, className, children, ...props }) {
+      code({ node, inline, className, children, ...props }: any) {
         return (
           <code
             className={`${className} ${
@@ -70,8 +69,7 @@ const MessageContent = ({ content }: { content: string }) => (
           </code>
         )
       },
-      // 自定义链接样式
-      a({ node, children, ...props }) {
+      a({ children, ...props }: any) {
         return (
           <a
             className="text-blue-500 hover:text-blue-600 underline"
@@ -83,15 +81,14 @@ const MessageContent = ({ content }: { content: string }) => (
           </a>
         )
       },
-      // 自定义列表样式
-      ul({ node, children, ...props }) {
+      ul({ children, ...props }: any) {
         return (
           <ul className="list-disc list-inside my-2" {...props}>
             {children}
           </ul>
         )
       },
-      ol({ node, children, ...props }) {
+      ol({ children, ...props }: any) {
         return (
           <ol className="list-decimal list-inside my-2" {...props}>
             {children}
