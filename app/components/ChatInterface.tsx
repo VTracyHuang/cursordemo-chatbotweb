@@ -4,7 +4,7 @@ import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Message } from '../types/chat'
-import { ReactMarkdownProps } from 'react-markdown/lib/complex-types'
+import type { Components } from 'react-markdown'
 
 const AIAvatar = () => (
   <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 p-[2px]">
@@ -50,13 +50,15 @@ const UserAvatar = () => (
   </div>
 )
 
-interface CodeProps extends ReactMarkdownProps {
+interface CodeProps {
   inline?: boolean;
   className?: string;
+  children?: React.ReactNode;
 }
 
-interface LinkProps extends ReactMarkdownProps {
+interface LinkProps {
   href?: string;
+  children?: React.ReactNode;
 }
 
 const MessageContent = ({ content }: { content: string }) => (
@@ -64,7 +66,7 @@ const MessageContent = ({ content }: { content: string }) => (
     className="prose prose-sm max-w-none dark:prose-invert prose-pre:bg-gray-800 prose-pre:text-gray-100"
     remarkPlugins={[remarkGfm]}
     components={{
-      code({ inline, className, children, ...props }: CodeProps) {
+      code({ inline, className, children }: CodeProps) {
         return (
           <code
             className={`${className} ${
@@ -72,35 +74,33 @@ const MessageContent = ({ content }: { content: string }) => (
                 ? 'bg-gray-100 rounded px-1 py-0.5' 
                 : 'block bg-gray-800 text-gray-100 rounded-lg p-4 my-2 overflow-x-auto'
             }`}
-            {...props}
           >
             {children}
           </code>
         )
       },
-      a({ children, href, ...props }: LinkProps) {
+      a({ children, href }: LinkProps) {
         return (
           <a
             className="text-blue-500 hover:text-blue-600 underline"
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            {...props}
           >
             {children}
           </a>
         )
       },
-      ul({ children, ...props }: ReactMarkdownProps) {
+      ul({ children }) {
         return (
-          <ul className="list-disc list-inside my-2" {...props}>
+          <ul className="list-disc list-inside my-2">
             {children}
           </ul>
         )
       },
-      ol({ children, ...props }: ReactMarkdownProps) {
+      ol({ children }) {
         return (
-          <ol className="list-decimal list-inside my-2" {...props}>
+          <ol className="list-decimal list-inside my-2">
             {children}
           </ol>
         )
