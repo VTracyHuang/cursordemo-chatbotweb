@@ -4,6 +4,7 @@ import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Message } from '../types/chat'
+import type { Components } from 'react-markdown'
 
 const AIAvatar = () => (
   <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 p-[2px]">
@@ -49,6 +50,8 @@ const UserAvatar = () => (
   </div>
 )
 
+type ComponentType = Components
+
 interface CodeProps {
   inline?: boolean;
   className?: string;
@@ -90,21 +93,21 @@ const MessageContent = ({ content }: { content: string }) => (
           </a>
         )
       },
-      ul({ children }) {
+      ul({ children, ...props }) {
         return (
-          <ul className="list-disc list-inside my-2">
+          <ul className="list-disc list-inside my-2" {...props}>
             {children}
           </ul>
         )
       },
-      ol({ children }) {
+      ol({ children, ...props }) {
         return (
-          <ol className="list-decimal list-inside my-2">
+          <ol className="list-decimal list-inside my-2" {...props}>
             {children}
           </ol>
         )
       }
-    }}
+    } as ComponentType}
   >
     {content}
   </ReactMarkdown>
